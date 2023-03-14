@@ -9,6 +9,7 @@ const readFromFile = util.promisify(fs.readFile);
  *  @param {object} content The content you want to write to the file.
  *  @returns {void} Nothing
  */
+//writes to file
 const writeToFile = (destination, content) =>
   fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
     err ? console.error(err) : console.info(`\nData written to ${destination}`)
@@ -19,6 +20,7 @@ const writeToFile = (destination, content) =>
  *  @param {string} file The path to the file you want to save to.
  *  @returns {void} Nothing
  */
+//reads for info, then pushes a new .json file, a note, in the DB
 const readAndAppend = (content, file) => {
   fs.readFile(file, 'utf8', (err, data) => {
     if (err) {
@@ -30,22 +32,6 @@ const readAndAppend = (content, file) => {
     }
   });
 };
-const readAndRemove = (note_Id, file) => {
-  fs.readFile(file, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-    } else {
-      const parsedData = JSON.parse(data);
 
-      for (let i = 0; i < parsedData.length; i++) {
-        if (parsedData[i].note_Id === note_Id) {
-          parsedData.splice(i, 1);
-          writeToFile(parsedData, file);
-        }
-      };
-    }
-  });
-};
-
-
-module.exports = { readFromFile, writeToFile, readAndAppend, readAndRemove };
+//exports the necessary functions
+module.exports = { readFromFile, writeToFile, readAndAppend };

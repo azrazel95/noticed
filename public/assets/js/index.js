@@ -1,9 +1,11 @@
+//starting declarations
 let noteTitle;
 let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
-
+//this is specific to notes.html. not doing this would just throw errors on index.html, but you could get around this by having 2 index.js files, one for a very small bit of code and one for the rest.
+//the other file would be so small its not really worth it so here we are
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
@@ -24,7 +26,7 @@ const hide = (elem) => {
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
-
+//fetch requests
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
@@ -43,17 +45,16 @@ const saveNote = (note) =>
   });
 
 const deleteNote = (note_Id) =>
-
+  //gets the id to find the note to delete
   fetch(`/api/notes/${note_Id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   });
-
+//renders the selected note, setting it to read only
 const renderActiveNote = () => {
   hide(saveNoteBtn);
-console.log(activeNote)
   if (activeNote.note_id) {
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
@@ -66,13 +67,14 @@ console.log(activeNote)
     noteText.value = '';
   }
 };
-
+//saves a new note, the id is generated in the routes
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
   };
   saveNote(newNote).then(() => {
+    //displays the new note
     getAndRenderNotes();
     renderActiveNote();
   });
@@ -82,14 +84,14 @@ const handleNoteSave = () => {
 const handleNoteDelete = (e) => {
   // Prevents the click listener for the list from being called when the button inside of it is clicked
   e.stopPropagation();
-
+  //selects the parent element of the clicked element as it is a ::before pseudoelement
   const note = e.target;
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).note_id;
-  console.log(noteId, 'note')
+  //empties the current active note for selected id
   if (activeNote.note_id === noteId) {
     activeNote = {};
   }
-
+  //deletes it
   deleteNote(noteId).then(() => {
     getAndRenderNotes();
     renderActiveNote();
@@ -99,6 +101,7 @@ const handleNoteDelete = (e) => {
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
   e.preventDefault();
+  //gets the note which has the note within the data-note attribute
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
   renderActiveNote();
 };
@@ -108,7 +111,7 @@ const handleNewNoteView = (e) => {
   activeNote = {};
   renderActiveNote();
 };
-
+//if there is nothing in the title and text inputs, notebtn is hidden. else it is displayed
 const handleRenderSaveBtn = () => {
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
@@ -173,12 +176,12 @@ const renderNoteList = async (notes) => {
 
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(renderNoteList);
-
+//addeventlisteners
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
   noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
-
+//renders notes on page startup
 getAndRenderNotes();

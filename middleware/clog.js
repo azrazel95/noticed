@@ -16,5 +16,6 @@ const clog = (req, res, next) => {
 
   next();
 };
-
+//i really didnt think i needed this but it was very helpful during debugging
+//exports clog
 exports.clog = clog;
