@@ -3,8 +3,7 @@ const express = require('express');
 const path = require('path');
 const api = require('./router/index.js');
 const { clog } = require('./middleware/clog');
-// port declaration
-const PORT = process.env.port || 3001;
+let server = "https://notice-taker.herokuapp.com/"
 //declaring app as express
 const app = express();
 
@@ -30,6 +29,6 @@ app.get('/notes/', (req, res) =>
 
 
 //listens for requests
-app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT} 🚀`)
+app.listen(server, () =>
+  console.log(`App listening at ${server} 🚀`)
 );
