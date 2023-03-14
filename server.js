@@ -27,9 +27,10 @@ app.get('/notes/', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
-
+//this is the only way i could get heroku to work
 let server = app.listen(PORT, function ()
 {
+  //finds the adress and port of the server and deploys there
     let host = server.address().address;
     let port = server.address().port;
     console.log("server is listening at http://%s:%s", host, port);

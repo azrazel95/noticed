@@ -19,13 +19,17 @@ an almost full stack note taking application
 
 
 
+![The landing page!](./public/assets/images/noticed1.png "landing page")
+
+![The application!](./public/assets/images/noticed2.png "note taking app")
+
 
 
 ## Installation
 
 simply open the website on heroku!
 
-
+[the website](https://notice-taker.herokuapp.com/).
 
 ## Usage
 
