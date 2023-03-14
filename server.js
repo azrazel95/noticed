@@ -1,9 +1,11 @@
+// module imports
 const express = require('express');
 const path = require('path');
 const api = require('./router/index.js');
 const { clog } = require('./middleware/clog');
-const PORT = process.env.PORT || 3001;
-
+// port declaration
+const PORT = 3001;
+//declaring app as express
 const app = express();
 
 // Import custom middleware, "cLog"
@@ -13,7 +15,7 @@ app.use(clog);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', api);
-
+// tells express.js to utilize the public folder
 app.use(express.static('public'));
 
 // GET Route for homepage
@@ -22,12 +24,12 @@ app.get('/', (req, res) =>
 );
 
 // GET Route for feedback page
-app.get('/notes', (req, res) =>
+app.get('/notes/', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
 
-
+//listens for requests
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
 );

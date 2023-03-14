@@ -1,3 +1,4 @@
+/* sets the styling for the body */
 html,
 body {
   height: 100%;
@@ -5,10 +6,12 @@ body {
   padding: 0;
 }
 
+/* gets activated when a note is written and now available to be saved */
 .save-note {
   display: none;
 }
 
+/* styles the two icons in the top right, ensures they display nicely */
 .icons i {
   margin-left: 15px;
   margin-right: 15px;
@@ -16,6 +19,7 @@ body {
   cursor: pointer;
 }
 
+/* styles the text where the note is ready to be written */
 .note-textarea,
 .note-title {
   color: #000000;
@@ -24,23 +28,27 @@ body {
   border: none;
 }
 
+/* sizes the note text area */
 .note-textarea {
   resize: none;
   height: calc(100% - 63px);
   padding-top: 15px;
 }
 
+/* sizes the note title area */
 .note-title {
   height: 50px;
   margin-top: 13px;
   font-size: 3rem;
 }
 
+/* colours the text in those areas */
 .note-title:read-only,
 .note-textarea:read-only {
   color: #757575;
 }
 
+/* styles the note list containers */
 .list-container .card {
   height: calc(100vh - 70px);
   border-bottom: none;
